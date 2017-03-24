@@ -1,0 +1,16 @@
+tile.trplaque.roth.name=Turtle Rally - Rotating plate clockwise
+tile.trplaque.rota.name=Turtle Rally - Rotating plate counterclockwise
+tile.trtapis.name=Turtle Rally - Conveyor belt
+tile.trtapisdroite.name=Turtle Rally - Conveyor belt Right turn
+tile.trtapisgauche.name=Turtle Rally - Conveyor belt Left turn
+tile.genLaser.name=Projectil Generator
+fr.adslhouba.trblock.addInfo1=Animate by a redstone signal
+fr.adslhouba.trblock.addInfo2=WARNING Only decorative
+itemGroup.houb_tabs=Houb'mod
+fr.adslhouba.trtapis.code=In TurtleRally type "tapis"
+fr.adslhouba.trtapis.code1=Param {mx=Movement en x,my=Movement en y,rot=\"NON\"}
+fr.adslhouba.trtapis.code2=Param {mx=Movement en x,my=Movement en y,rot=\"clockTurn\"}
+fr.adslhouba.trtapis.code3=Param {mx=Movement en x,my=Movement en y,rot=\"trigoTurn\"}
+fr.adslhouba.plaque.code=In TurtleRally type "tournante"
+fr.adslhouba.plaque.code0=Param "clockTurn"
+fr.adslhouba.plaque.code1=Param "trigoTurn"

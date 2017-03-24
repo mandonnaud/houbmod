@@ -1,0 +1,18 @@
+[
+{
+  "modid": "houblod",
+  "name": "Houb'Mod",
+  "description": "Boite à outils Adsl Houba.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "www.adslhouba.fr",
+  "updateUrl": "",
+  "authorList": ["Adsl Houba"],
+  "credits": "The Forge, FML guys et minecraftforgefrance.fr",
+  "logoFile": "",
+  "screenshots": [],
+  "requiredMods": ["Forge","ComputerCraft"],
+  "dependencies": [],
+  "useDependencyInformation": false
+}
+]

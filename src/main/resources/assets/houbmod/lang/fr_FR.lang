@@ -1,0 +1,16 @@
+tile.trplaque.roth.name=Turtle Rally - Plaque tournante horaire
+tile.trplaque.rota.name=Turtle Rally - Plaque tournante antihoraire
+tile.trtapis.name=Turtle Rally - Tapis roulant
+tile.trtapisdroite.name=Turtle Rally - Tapis roulant virage droite
+tile.trtapisgauche.name=Turtle Rally - Tapis roulant virage gauche
+tile.genLaser.name=Générateur de projectil
+fr.adslhouba.trblock.addInfo1=S'anime avec un signal de redstone
+fr.adslhouba.trblock.addInfo2=ATTENTION purement décoratif
+itemGroup.houb_tabs=Houb'mod
+fr.adslhouba.trtapis.code=Sur TurtleRally type "tapis"
+fr.adslhouba.trtapis.code1=Param {mx=Mouvement en x,my=Mouvement en y,rot=\"NON\"}
+fr.adslhouba.trtapis.code2=Param {mx=Mouvement en x,my=Mouvement en y,rot=\"clockTurn\"}
+fr.adslhouba.trtapis.code3=Param {mx=Mouvement en x,my=Mouvement en y,rot=\"trigoTurn\"}
+fr.adslhouba.plaque.code=Sur TurtleRally type "tournante"
+fr.adslhouba.plaque.code0=Param "clockTurn"
+fr.adslhouba.plaque.code1=Param "trigoTurn"
