@@ -22,7 +22,7 @@ import dan200.computercraft.api.ComputerCraftAPI;
 import fr.adslhouba.houbmod.proxy.CommonProxy;
 import fr.adslhouba.houbmod.utils.houbPeripheral;
 
-@Mod(modid = "houbmod", name = "HoubMod", version = "1.2.2")
+@Mod(modid = "houbmod", name = "HoubMod", version = "1.2.3")
 
 public class HoubMod {
 	public static final String MODID = "houbmod";

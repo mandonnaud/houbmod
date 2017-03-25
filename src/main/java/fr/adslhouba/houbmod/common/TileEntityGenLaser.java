@@ -4,7 +4,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
@@ -17,12 +20,14 @@ import fr.adslhouba.houbmod.utils.houbPeripheral;
 
 public class TileEntityGenLaser extends TileEntity  implements houbPeripheral {
 	public static String publicName = "laserGen";
-	private  String name = "tileEntityLaserGen";
+	private String name = "tileEntityLaserGen";
+	private List<EntityProjectil> aSpawn=new ArrayList<EntityProjectil>();
 	private HashMap<IComputerAccess,Boolean> computers = new HashMap<IComputerAccess,Boolean>();
 	private ITurtleAccess turtle;
 	public static final String[] METHOD_NAMES = new String[]{"tire"};
 	
 	public TileEntityGenLaser() {
+	
 		super();
 	}
 
@@ -66,6 +71,20 @@ public class TileEntityGenLaser extends TileEntity  implements houbPeripheral {
 	}
 	
 	@Override
+    public void updateEntity()
+    {
+    	if (aSpawn.size()!=0) {
+    		Iterator itr = aSpawn.iterator();
+    	     
+    		while(itr.hasNext()) {
+    		   EntityProjectil element = (EntityProjectil) itr.next();
+    		   itr.remove();    		   
+    		   worldObj.spawnEntityInWorld(element);
+    		}
+    	}
+    }
+	
+	@Override
 	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException {
 		switch(method) {
 			case 0:	
@@ -106,7 +125,9 @@ public class TileEntityGenLaser extends TileEntity  implements houbPeripheral {
 					
 					tire.setPosition(X+0.5, Y+0.5, Z);
 					tire.direction((String)arguments[3],vitesse);
-					worldObj.spawnEntityInWorld(tire);				
+					aSpawn.add(tire);
+					
+					
 				}
 				//
 			break;
