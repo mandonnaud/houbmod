@@ -14,3 +14,5 @@ fr.adslhouba.trtapis.code3=Param {mx=Movement en x,my=Movement en y,rot=\"trigoT
 fr.adslhouba.plaque.code=In TurtleRally type "tournante"
 fr.adslhouba.plaque.code0=Param "clockTurn"
 fr.adslhouba.plaque.code1=Param "trigoTurn"
+tile.ccUpgrader.name=Upgrader ComputerCraft
+tile.itemHbProjectil.name=Projectile (not craftable)
