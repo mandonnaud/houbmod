@@ -23,6 +23,10 @@ public class BlockTRTapis extends Block
     public BlockTRTapis()
     {
     	super(Material.iron);
+    	this.setBlockName("trtapis");
+    	this.setCreativeTab(HoubMod.HoubModCreativeTabs);
+    	this.setHardness(3.5F);
+    	this.setResistance(5.5F);
     }
 
     public int damageDropped(int metadata)

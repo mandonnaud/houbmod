@@ -2,6 +2,7 @@ package fr.adslhouba.houbmod.common.block.cc;
 
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
+import fr.adslhouba.houbmod.common.HoubMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -13,6 +14,11 @@ public class BlockGenLaser extends BlockContainer  implements IPeripheralProvide
 	public BlockGenLaser()
     {
         super(Material.iron);
+        this.setBlockName("genLaser");
+        this.setBlockTextureName("houbMod:genlaser");
+        this.setCreativeTab(HoubMod.HoubModCreativeTabs);
+        this.setHardness(3.5F);
+        this.setResistance(5.5F);
     }
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata)

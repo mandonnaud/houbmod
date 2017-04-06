@@ -3,12 +3,14 @@ package fr.adslhouba.houbmod.common.block.cc;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
 import fr.adslhouba.houbmod.common.HoubMod;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class BlockInterrupteur extends BlockContainer implements IPeripheralProvider  {
+public class BlockInterrupteur extends Block implements IPeripheralProvider  {
 	public BlockInterrupteur()
     {
         super(Material.iron);
@@ -17,13 +19,24 @@ public class BlockInterrupteur extends BlockContainer implements IPeripheralProv
 		this.setHardness(3.5F);
 		this.setResistance(5.5F);
 		
+//		this.IsProvidingWeakPower (IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side); 
     }
+	private Integer powerIndex=0;
 	@Override
-	public TileEntity createNewTileEntity(World world, int metadata)
+	public boolean canProvidePower()
+	{
+	    return true;
+	}
+	
+	
+	 
+	@Override
+	public TileEntityInterupteur createTileEntity(World world, int metadata)
     {
         return new TileEntityInterupteur();
     }
 
+	 
     @Override
     public boolean hasTileEntity(int metadata)
     {
@@ -39,4 +52,5 @@ public class BlockInterrupteur extends BlockContainer implements IPeripheralProv
 		}
 		return null;
 	}
+    
 }

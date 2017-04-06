@@ -1,5 +1,6 @@
 package fr.adslhouba.houbmod.common;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -54,7 +55,7 @@ public class HoubMod {
     @SidedProxy(clientSide = "fr.adslhouba.houbmod.proxy.ClientProxy", serverSide = "fr.adslhouba.houbmod.proxy.CommonProxy")
     public static CommonProxy proxy;
     
-    public static Block trPlaque, trTapis, trTapisDroite, trTapisGauche, genLaser, ccMaj;
+    public static Block trPlaque, trTapis, trTapisDroite, trTapisGauche, genLaser, ccMaj, ccInterrupteur;
 	public static Item projectil, itemMaj;
     
     @EventHandler
@@ -63,48 +64,50 @@ public class HoubMod {
 		trPlaque = new BlockTRPlaque();
 		GameRegistry.registerBlock(trPlaque,BlockTRPlaqueItem.class,"trplaque", MODID, new Object[]{BlockTRPlaque.subBlock});
 		
-		trTapis = new BlockTRTapis().setBlockName("trtapis").setCreativeTab(HoubMod.HoubModCreativeTabs).setHardness(3.5F);
+		trTapis = new BlockTRTapis();
 		GameRegistry.registerBlock(trTapis,BlockTRTapisItem.class,"trtapis");
 		
-		trTapisDroite = new BlockTRTapisDroite().setBlockName("trtapisdroite").setCreativeTab(HoubMod.HoubModCreativeTabs).setHardness(3.5F);
+		trTapisDroite = new BlockTRTapisDroite().setBlockName("trtapisdroite");
 		GameRegistry.registerBlock(trTapisDroite,BlockTRTapisItem.class,"trtapisdroite");
 		
-		trTapisGauche = new BlockTRTapisGauche().setBlockName("trtapisgauche").setCreativeTab(HoubMod.HoubModCreativeTabs).setHardness(3.5F);
+		trTapisGauche = new BlockTRTapisGauche().setBlockName("trtapisgauche");
 		GameRegistry.registerBlock(trTapisGauche,BlockTRTapisItem.class,"trtapisgauche");
 		
-		genLaser = new BlockGenLaser().setBlockName("genLaser").setBlockTextureName("houbMod:genlaser").setCreativeTab(HoubMod.HoubModCreativeTabs).setHardness(3.5F);
-		GameRegistry.registerBlock(genLaser, "genLaser");
-		
-		projectil = new ItemProjectil().setUnlocalizedName("itemHbProjectil").setTextureName(HoubMod.MODID + ":projectil");
-		GameRegistry.registerItem(projectil, "projectil");
-		
-		ccMaj = new blockMaj().setBlockName("ccUpgrader").setBlockTextureName("houbMod:upgrader").setCreativeTab(HoubMod.HoubModCreativeTabs).setHardness(3.5F);
-		GameRegistry.registerBlock(ccMaj, "ccUpgrader");
-		
+		if (Loader.isModLoaded("ComputerCraft")) {
+			genLaser = new BlockGenLaser();
+			GameRegistry.registerBlock(genLaser, "genLaser");
+			
+			projectil = new ItemProjectil().setUnlocalizedName("itemHbProjectil").setTextureName(HoubMod.MODID + ":projectil");
+			GameRegistry.registerItem(projectil, "projectil");
+			
+			ccMaj = new blockMaj();
+			GameRegistry.registerBlock(ccMaj, "ccUpgrader");
+			
+			ccInterrupteur = new BlockInterrupteur();
+			GameRegistry.registerBlock(ccInterrupteur, "ccInterrupteur");
+			
+			GameRegistry.registerTileEntity(TileEntityGenLaser.class, "houbmod:genlaserentity");
+			GameRegistry.registerTileEntity(TileEntityMaj.class, "houbmod:tileEntityMaj");
+			GameRegistry.registerTileEntity(TileEntityInterupteur.class, "houbmod:tileEntityInterrupteur");
+			
+			EntityRegistry.registerModEntity(EntityProjectil.class, "tire", 0, this, 32, 1, false);
+		}
 		/*
 		itemMaj = new itemMaj().setUnlocalizedName("itemHbMaj").setTextureName(HoubMod.MODID + ":maj").setCreativeTab(HoubMod.HoubModCreativeTabs);
 		GameRegistry.registerItem(itemMaj, "CC_maj");
 		*/
-		
-		
-
-		GameRegistry.registerTileEntity(TileEntityGenLaser.class, "houbmod:genlaserentity");
-		GameRegistry.registerTileEntity(TileEntityMaj.class, "houbmod:tileEntityMaj");
-		EntityRegistry.registerModEntity(EntityProjectil.class, "tire", 0, this, 32, 1, false);
-		//event.getModConfigurationDirectory(),
-		
-		//majApi.init(event.getModConfigurationDirectory());
 		
 	}
 	
 	@EventHandler
     public void init(FMLInitializationEvent event)
     {
-		ComputerCraftAPI.registerPeripheralProvider(new houbPeripheral.Provider());
-		proxy.registerRender();
+		if (Loader.isModLoaded("ComputerCraft")) {
+			ComputerCraftAPI.registerPeripheralProvider(new houbPeripheral.Provider());
+			proxy.registerRender();
+		}
 
 		//NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerMaj());
-		
 	}
 	
 	@EventHandler
@@ -124,23 +127,25 @@ public class HoubMod {
 		GameRegistry.addRecipe(new ItemStack(trTapisDroite, 1, 0), new Object[] {"X ", "  ", 'X', new ItemStack(trTapisGauche, 1, 0)});
 		GameRegistry.addRecipe(new ItemStack(trTapisGauche, 1, 0), new Object[] {"X ", "  ", 'X', new ItemStack(trTapis, 1, 0)});
 		
-		GameRegistry.addRecipe(new ItemStack(genLaser), new Object[] {
-				"YXY",
-				"YZY",
-				"YVY", 
-				'V', Blocks.dispenser,
-				'X', new ItemStack(Items.dye, 1, 1),
-				'Z', Items.arrow,
-				'Y', Items.iron_ingot
-		});
-		
-		GameRegistry.addRecipe(new ItemStack(ccMaj), new Object[] {
-				"SSS",
-				"SRS",
-				"SGS", 
-				'R', Items.redstone,
-				'G', Items.gold_ingot,
-				'S', new ItemStack(Items.dye,1,2)
-		});
+		if (Loader.isModLoaded("ComputerCraft")) {
+			GameRegistry.addRecipe(new ItemStack(genLaser), new Object[] {
+					"YXY",
+					"YZY",
+					"YVY", 
+					'V', Blocks.dispenser,
+					'X', new ItemStack(Items.dye, 1, 1),
+					'Z', Items.arrow,
+					'Y', Items.iron_ingot
+			});
+			
+			GameRegistry.addRecipe(new ItemStack(ccMaj), new Object[] {
+					"SSS",
+					"SRS",
+					"SGS", 
+					'R', Items.redstone,
+					'G', Items.gold_ingot,
+					'S', new ItemStack(Items.dye,1,2)
+			});
+		}
 	}
 }

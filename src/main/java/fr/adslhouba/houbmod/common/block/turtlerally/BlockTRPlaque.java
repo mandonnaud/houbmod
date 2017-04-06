@@ -23,6 +23,7 @@ public class BlockTRPlaque extends Block {
 		this.setBlockName("trplaque");
 		this.setCreativeTab(HoubMod.HoubModCreativeTabs);
 		this.setHardness(3.5F);
+		this.setResistance(5.5F);
 		
 		// worldObj.getBlockPowerInput(this.xCoord, this.yCoord, this.zCoord) 
 	}	

@@ -24,6 +24,11 @@ public class blockMaj extends BlockContainer  implements IPeripheralProvider  {
 	public blockMaj()
     {
         super(Material.iron);
+        this.setBlockName("ccUpgrader");
+        this.setBlockTextureName("houbMod:upgrader");
+        this.setCreativeTab(HoubMod.HoubModCreativeTabs);
+        this.setHardness(3.5F);
+        this.setResistance(5.5F);
     }
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata)
