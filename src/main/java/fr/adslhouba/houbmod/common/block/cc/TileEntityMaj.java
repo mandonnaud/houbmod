@@ -110,7 +110,7 @@ public class TileEntityMaj extends TileEntity  implements houbPeripheral {
 	
 	@Override
 	public boolean equals(IPeripheral other) {
-		return other instanceof TileEntityGenLaser && other == this;
+		return other instanceof TileEntityMaj && other == this;
 	}
 	
 	@Override
