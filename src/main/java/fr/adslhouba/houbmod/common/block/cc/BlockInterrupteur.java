@@ -1,5 +1,7 @@
 package fr.adslhouba.houbmod.common.block.cc;
 
+import java.util.Random;
+
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
 import fr.adslhouba.houbmod.common.HoubMod;
@@ -8,9 +10,10 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockInterrupteur extends Block implements IPeripheralProvider  {
+public class BlockInterrupteur extends BlockContainer implements IPeripheralProvider  {
 	public BlockInterrupteur()
     {
         super(Material.iron);
@@ -18,22 +21,30 @@ public class BlockInterrupteur extends Block implements IPeripheralProvider  {
 		this.setCreativeTab(HoubMod.HoubModCreativeTabs);
 		this.setHardness(3.5F);
 		this.setResistance(5.5F);
-		
 //		this.IsProvidingWeakPower (IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side); 
     }
-	private Integer powerIndex=0;
 	@Override
 	public boolean canProvidePower()
 	{
 	    return true;
 	}
 	
+	@Override
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if (tileEntity instanceof TileEntityInterupteur) {
+
+            return ((TileEntityInterupteur)tileEntity).intensite;
+
+        }
+		return 0;
+	}	
 	
 	 
 	@Override
-	public TileEntityInterupteur createTileEntity(World world, int metadata)
+	public TileEntityInterupteur createNewTileEntity(World world, int metadata)
     {
-        return new TileEntityInterupteur();
+        return new TileEntityInterupteur(this);
     }
 
 	 
@@ -48,9 +59,12 @@ public class BlockInterrupteur extends Block implements IPeripheralProvider  {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
 		if (tileEntity instanceof TileEntityInterupteur) {
-			return (TileEntityInterupteur) tileEntity;
+			TileEntityInterupteur fuck=(TileEntityInterupteur) tileEntity;
+			fuck.block=this;
+			return fuck;
 		}
 		return null;
 	}
+
     
 }
