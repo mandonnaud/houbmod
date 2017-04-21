@@ -12,6 +12,7 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.turtle.ITurtleAccess;
 import fr.adslhouba.houbmod.common.entity.EntityProjectil;
 import fr.adslhouba.houbmod.utils.houbPeripheral;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -22,11 +23,18 @@ public class TileEntityInterupteur extends TileEntity  implements houbPeripheral
 	private HashMap<IComputerAccess,Boolean> computers = new HashMap<IComputerAccess,Boolean>();
 	private ITurtleAccess turtle;
 	public static final String[] METHOD_NAMES = new String[]{"set","get"};
-	private int intensite = 0;
-	private boolean changement = false;
+	public BlockInterrupteur block;
+	private boolean changement=false;
+	public int intensite=0;
 	
 	public TileEntityInterupteur() {
 		super();
+		
+	}
+	
+	public TileEntityInterupteur(BlockInterrupteur block) {
+		super();
+		this.block=block;
 	}
 
 	public TileEntityInterupteur(ITurtleAccess turtle) {
@@ -45,12 +53,14 @@ public class TileEntityInterupteur extends TileEntity  implements houbPeripheral
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
+        this.intensite = compound.getInteger("intensite");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
+        compound.setInteger("intensite", this.intensite);
     }
     
 	@Override
@@ -67,11 +77,27 @@ public class TileEntityInterupteur extends TileEntity  implements houbPeripheral
 	public String[] getMethodNames() {
 		return METHOD_NAMES;
 	}
-	
+	private void updateRedstone(int x,int y,int z, Block block) {
+		this.worldObj.getBlock(x, y, z).onNeighborBlockChange(this.worldObj,x, y, z,block);
+	}
 	@Override
     public void updateEntity()
     {
-		
+		if (this.changement) {
+			
+			Block block=this.worldObj.getBlock(xCoord, yCoord, zCoord);
+			
+			updateRedstone(xCoord+1, yCoord, zCoord, block);
+			updateRedstone(xCoord-1, yCoord, zCoord, block);
+
+			updateRedstone(xCoord, yCoord+1, zCoord, block);
+			updateRedstone(xCoord, yCoord-1, zCoord, block);			
+
+			updateRedstone(xCoord, yCoord, zCoord+1, block);
+			updateRedstone(xCoord, yCoord, zCoord-1, block);
+			
+			this.changement=false;
+		}
     }
 	
 	@Override
@@ -84,15 +110,18 @@ public class TileEntityInterupteur extends TileEntity  implements houbPeripheral
 					throw new LuaException("Bad argument #1 X (expected number)");
 				
 				Double intesiteRecu=(Double) arguments[0];
+				System.out.println();
 				this.intensite=(int) Math.round(intesiteRecu);
 				this.changement=true;
 			break;
+			case 1:
+				return new Object[] {this.intensite};
+			
 		}
 		return new Object[0];
 	}
 	@Override
 	public void attach(IComputerAccess computer) {
-		
 	}
 	@Override
 	public void detach(IComputerAccess computer) {
