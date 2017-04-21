@@ -55,7 +55,7 @@ public class HoubMod {
     @SidedProxy(clientSide = "fr.adslhouba.houbmod.proxy.ClientProxy", serverSide = "fr.adslhouba.houbmod.proxy.CommonProxy")
     public static CommonProxy proxy;
     
-    public static Block trPlaque, trTapis, trTapisDroite, trTapisGauche, genLaser, ccMaj, ccInterrupteur;
+    public static Block trPlaque, trTapis, trTapisDroite, trTapisGauche, genLaser, ccMaj, ccInterrupteur, ccEnclumeCPO;
 	public static Item projectil, itemMaj;
     
     @EventHandler
@@ -86,9 +86,13 @@ public class HoubMod {
 			ccInterrupteur = new BlockInterrupteur();
 			GameRegistry.registerBlock(ccInterrupteur, "ccInterrupteur");
 			
+			ccEnclumeCPO = new BlockEnclumeCPO();
+			GameRegistry.registerBlock(ccEnclumeCPO, "ccEnclumeCPO");
+			
 			GameRegistry.registerTileEntity(TileEntityGenLaser.class, "houbmod:genlaserentity");
 			GameRegistry.registerTileEntity(TileEntityMaj.class, "houbmod:tileEntityMaj");
 			GameRegistry.registerTileEntity(TileEntityInterupteur.class, "houbmod:tileEntityInterrupteur");
+			GameRegistry.registerTileEntity(TileEntityEnclumeCPO.class, "houbmod:tileEntityEnclumeCPO");
 			
 			EntityRegistry.registerModEntity(EntityProjectil.class, "tire", 0, this, 32, 1, false);
 		}
@@ -105,7 +109,10 @@ public class HoubMod {
 		if (Loader.isModLoaded("ComputerCraft")) {
 			ComputerCraftAPI.registerPeripheralProvider(new houbPeripheral.Provider());
 			proxy.registerRender();
+
+			NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerHoubMod());
 		}
+		
 
 		//NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandlerMaj());
 	}
@@ -145,6 +152,24 @@ public class HoubMod {
 					'R', Items.redstone,
 					'G', Items.gold_ingot,
 					'S', new ItemStack(Items.dye,1,2)
+			});
+			
+			GameRegistry.addRecipe(new ItemStack(ccInterrupteur), new Object[] {
+					" R ",
+					"SGS",
+					" S ", 
+					'R', Blocks.lever,
+					'G', Blocks.redstone_block,
+					'S', Items.iron_ingot
+			});			
+			
+			GameRegistry.addRecipe(new ItemStack(ccEnclumeCPO), new Object[] {
+					"SGS",
+					"SRS",
+					"SSS", 
+					'R', Blocks.anvil,
+					'G', Items.name_tag,
+					'S', Items.iron_ingot
 			});
 		}
 	}

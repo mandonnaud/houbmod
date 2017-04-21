@@ -15,6 +15,7 @@ public class BlockInterrupteur extends Block implements IPeripheralProvider  {
     {
         super(Material.iron);
         this.setBlockName("ccInterupteur");
+        this.setBlockTextureName("houbMod:ccinterupteur");
 		this.setCreativeTab(HoubMod.HoubModCreativeTabs);
 		this.setHardness(3.5F);
 		this.setResistance(5.5F);
@@ -28,14 +29,11 @@ public class BlockInterrupteur extends Block implements IPeripheralProvider  {
 	    return true;
 	}
 	
-	
-	 
 	@Override
 	public TileEntityInterupteur createTileEntity(World world, int metadata)
     {
         return new TileEntityInterupteur();
     }
-
 	 
     @Override
     public boolean hasTileEntity(int metadata)
@@ -52,5 +50,4 @@ public class BlockInterrupteur extends Block implements IPeripheralProvider  {
 		}
 		return null;
 	}
-    
 }
