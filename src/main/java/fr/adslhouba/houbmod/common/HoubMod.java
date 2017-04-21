@@ -155,11 +155,11 @@ public class HoubMod {
 			});
 			
 			GameRegistry.addRecipe(new ItemStack(ccInterrupteur), new Object[] {
-					" R ",
-					"SGS",
-					" S ", 
-					'R', Blocks.lever,
-					'G', Blocks.redstone_block,
+					"SRS",
+					"RLR",
+					"SRS", 
+					'L', Blocks.lever,
+					'R', Items.redstone,
 					'S', Items.iron_ingot
 			});			
 			

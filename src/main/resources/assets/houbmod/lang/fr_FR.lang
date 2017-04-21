@@ -16,3 +16,6 @@ fr.adslhouba.plaque.code0=Param "clockTurn"
 fr.adslhouba.plaque.code1=Param "trigoTurn"
 tile.ccUpgrader.name=Upgrader ComputerCraft
 tile.itemHbProjectil.name=Projectile (non craftable)
+tile.ccInterupteur.name=Interrupteur redstone ComputerCraft
+tile.ccEnclumeCPO.name=Renomeur AO ComputerCraft
+tile.houbmod.fenetre=RAO - Renomeur
